@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Firebase Web Basics</title>
+
+	<link href="https://fonts.googleapis.com/css?family=Raleway:300,400,500,700" rel="stylesheet">
+<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+	<script src="https://use.fontawesome.com/939e9dd52c.js"></script>
+
+	<link rel="stylesheet" type="text/css" href="style2.css">
+</head>
+<body>
+
+	<div class="mainDiv" align="right">
+		<h1 align="left">Event Planner</h1>
+ <input id="why" type="text" name="name" placeholder="Name Of event">
+ <br>
+ <input id="desc" type="text" name="desc" placeholder="Description">
+<br>
+<input id="local" type="text" name="loca" placeholder="Location">
+<br>
+<input id="date" type="text" name="date" placeholder="Date">
+<br>
+<input id="time" type="text" name="time" placeholder="Time">
+<br>
+<button id="return" onclick="location.href='login.html'"><i class="fa fa-arrow-left" aria-hidden="true"></i></button>
+		<button id="submit" onClick="submitClick()"><i class="fa fa-arrow-right" aria-hidden="true"></i></button>
+	</div>
+  <script src="app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.6.1/firebase.js"></script>
+    <script>   const config = {
+        apiKey: "AIzaSyBG_PpA5pndDy11vIDpvZQcDxZSjPY9mVA",
+        authDomain: "mappedout-bb4db.firebaseapp.com",
+        databaseURL: "https://mappedout-bb4db.firebaseio.com",
+        projectId: "mappedout-bb4db",
+        storageBucket: "mappedout-bb4db.appspot.com",
+        messagingSenderId: "145866489357"
+      };
+      firebase.initializeApp(config);
+      </script>
+</body>
+</html>

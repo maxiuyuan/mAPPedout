@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>login</title>
+    <link rel="stylesheet" type="text/css" href="style.css"/>
+    <link href='https://fonts.googleapis.com/css?family=Orbitron' rel='stylesheet' type='text/css'>
+    <style>
+      #map{
+        height: 806px;
+        width:100%;
+      }
+      </style>
+
+      <button id="appLogin" type="reset" onclick="location.href='submit.html'"> Create Event</button>
+      <button id = "test"> Show Events</button>
+
+
+    <div id="map">
+
+    </div>
+    <!---<script>
+      function initMap(){
+        var options ={
+          zoom:8,
+          center:{lat:42,lng:-71}
+        }
+        var map = new google.maps.Map(document.getElementById('map'), options);
+
+        /*document.getElementById('test').addEventListener('click', function() {
+           addMarker({lat:42,lng:-71});
+         });
+
+        /*google.maps.event.addListener(map, 'click', function(event) {
+           addMarker(event.latLng);
+        });*/
+
+
+        function addMarker(coords){
+          var marker = new google.maps.Marker({
+            position: coords,
+            map:map
+          });
+
+        }
+      }
+
+    </script>-->
+
+        <script src="https://www.gstatic.com/firebasejs/4.6.1/firebase.js"></script>
+
+    <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBG_PpA5pndDy11vIDpvZQcDxZSjPY9mVA&callback=initMap" >
+        </script>
+
+        <!--<script>   const config = {
+            apiKey: "AIzaSyBG_PpA5pndDy11vIDpvZQcDxZSjPY9mVA",
+            authDomain: "mappedout-bb4db.firebaseapp.com",
+            databaseURL: "https://mappedout-bb4db.firebaseio.com",
+            projectId: "mappedout-bb4db",
+            storageBucket: "mappedout-bb4db.appspot.com",
+            messagingSenderId: "145866489357"
+          };
+          firebase.initializeApp(config);
+        </script>-->
+
+<script>
+
+  var i = 0;
+  var latitude = new Array();
+  var longitude = new Array();
+  var title = new Array();
+  var description = new Array();
+  var date = new Array();
+  var time = new Array();
+
+    var config = {
+      apiKey: "AIzaSyBG_PpA5pndDy11vIDpvZQcDxZSjPY9mVA",
+      authDomain: "mappedout-bb4db.firebaseapp.com",
+      databaseURL: "https://mappedout-bb4db.firebaseio.com",
+      projectId: "mappedout-bb4db",
+      storageBucket: "mappedout-bb4db.appspot.com",
+      messagingSenderId: "145866489357"
+    };
+    firebase.initializeApp(config);
+
+    var rootRef = firebase.database().ref().child('events');
+
+    rootRef.on('child_added', snap => {console.log(snap.val())
+
+      var long = snap.child("longitude").val();
+      var lat = snap.child("latitude").val();
+      var dsc = snap.child("description").val();
+      var dat = snap.child("date").val();
+      var tim = snap.child("time").val();
+      var nam = snap.child("name").val();
+
+
+      latitude[i] = lat;
+      longitude[i] = long;
+      title[i] = nam;
+      description[i] = dsc;
+      date[i] = dat;
+      time[i] = tim;
+
+      i+=1;
+
+       });
+</script>
+
+<script>
+
+       function initMap(){
+         var options ={
+           zoom:3,
+           center:{lat:42,lng:-71}
+         }
+
+         var map = new google.maps.Map(document.getElementById('map'), options);
+
+         document.getElementById('test').addEventListener('click', function() {
+          for(var j = 0; j<i; j++){
+           var lati = latitude[j]
+            var longi = longitude[j]
+            var descri = description[j]
+            var titl = title[j]
+            var dati = date[j]
+            var timi = time[j]
+
+          addMarker({lat: lati, lng: longi}, descri, titl, dati, timi);
+
+          }
+
+          });
+          function addMarker(props, descri, titl, dati, timi){
+            var marker = new google.maps.Marker({
+              position: props,
+              map:map
+
+            });
+
+            var infowindow = new google.maps.InfoWindow({
+                   content: 'Event Name: ' + titl + ' Description: ' + descri + ' Time: ' +  timi  +' Date: ' + dati   });
+
+
+            marker.addListener('click', function() {
+         infowindow.open(map, marker);
+       });
+          }
+
+
+}
+
+
+
+
+
+
+      //var name = snap.child("name").val();
+    //});
+
+  /*var preObject = document.getElementById('events')
+
+var dbRefObject = firebase.database().ref().child("events");
+
+//syn object changes
+
+dbRefObject.on('value', snap => {console.log(snap.val())});
+
+dbRefObject.on('child_added', snap => {
+  var longitude = snap.child('longitude').val();
+})*/
+</script>
+
+  </body>
+</html>
